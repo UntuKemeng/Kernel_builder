@@ -65,7 +65,7 @@ if [[ $1 = "-c" || $1 = "--clean" ]]; then
     rm -rf out
 fi
 
-KBUILD_COMPILER_STRING="$("$GCC_64_DIR"/bin/aarch64-linux-android-gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
+KBUILD_COMPILER_STRING="$("$TC_DIR"/bin/arm-linux-androideabi-gcc --version | head -n 1 | perl -pe 's/\(http.*?\)//gs' | sed -e 's/  */ /g' -e 's/[[:space:]]*$//')"
 echo ================================================
 echo "              __  ______  ______              "
 echo "             /  |/  / _ \/_  __/              "
@@ -88,14 +88,14 @@ make O=out ARCH=arm $DEFCONFIG
 
 msg -e "\nStarting compilation...\n"
 make -j$(nproc --all) O=out ARCH=arm \
-    CROSS_COMPILE=${TC_DIR}/PLATFORM/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi- \
-    CROSS_COMPILE_ARM32=${TC_DIR}/PLATFORM/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9/bin/arm-linux-androideabi-
+    CROSS_COMPILE=${TC_DIR}/bin/arm-linux-androideabi- \
+    CROSS_COMPILE_ARM32=${TC_DIR}/bin/arm-linux-androideabi-
 
-if ! [ -f "out/arch/arm/boot/Image.gz-dtb" ]; then
+if ! [ -f "out/arch/arm/boot/zImage-dtb" ]; then
     finerr
 fi
 
-if [ -f "out/arch/arm/boot/Image.gz-dtb" ]; then
+if [ -f "out/arch/arm/boot/zImage-dtb" ]; then
     msg -e "\nKernel compiled succesfully! Zipping up...\n"
     if [ -d "$AK3_DIR" ]; then
         cp -r $AK3_DIR AnyKernel3
@@ -103,7 +103,7 @@ if [ -f "out/arch/arm/boot/Image.gz-dtb" ]; then
         msg1 -e "\nAnyKernel3 repo not found locally and cloning failed! Aborting..."
         exit 1
     fi
-    cp out/arch/arm/boot/Image.gz-dtb AnyKernel3
+    cp out/arch/arm/boot/zImage-dtb AnyKernel3
     rm -f *zip
     cd AnyKernel3
     git checkout master &> /dev/null
