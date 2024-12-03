@@ -14,9 +14,9 @@ KERNEL_BRANCH="main"
 KERNEL_DIR="${MRT_DIR}/${DEVICE_CODENAME}"
 
 # Toolchain Directory
-TC_SOURCE="https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9"
+TC_SOURCE="https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9"
 TC_DIR="${MRT_DIR}/PLATFORM/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.9"
-TC_BRANCH="nougat-release"
+TC_BRANCH="lineage-19.1"
 # CLANG_DIR="${MRT_DIR}/toolchain/linux-x86/clang-r510928"
 # GCC_64_DIR="${MRT_DIR}/toolchain/aarch64-linux-android-4.9"
 # GCC_32_DIR="${MRT_DIR}/toolchain/arm-linux-androideabi-4.9"

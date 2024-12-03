@@ -5,7 +5,7 @@ source $CONFIG
 cd ${KERNEL_DIR}
 
 function info() {
-    KERNEL_VERSION=$(cat $KERNEL_DIR/out/.config | grep Linux/arm64 | cut -d " " -f3)
+    KERNEL_VERSION=$(cat $KERNEL_DIR/out/.config | grep Linux/arm | cut -d " " -f3)
     UTS_VERSION=$(cat $KERNEL_DIR/out/include/generated/compile.h | grep UTS_VERSION | cut -d '"' -f2)
     TOOLCHAIN_VERSION=$(cat $KERNEL_DIR/out/include/generated/compile.h | grep LINUX_COMPILER | cut -d '"' -f2)
     TRIGGER_SHA="$(git rev-parse HEAD)"
@@ -56,8 +56,8 @@ function finerr() {
 }
 
 if [[ $1 = "-r" || $1 = "--regen" ]]; then
-    make O=out ARCH=arm64 $DEFCONFIG savedefconfig
-    cp out/defconfig arch/arm64/configs/$DEFCONFIG
+    make O=out ARCH=arm $DEFCONFIG savedefconfig
+    cp out/defconfig arch/arm/configs/$DEFCONFIG
     exit
 fi
 
@@ -91,11 +91,11 @@ make -j$(nproc --all) O=out ARCH=arm \
     CROSS_COMPILE=${TC_DIR}/bin/arm-linux-androideabi- \
     CROSS_COMPILE_ARM32=${TC_DIR}/bin/arm-linux-androideabi-
 
-if ! [ -f "out/arch/arm/boot/zImage-dtb" ]; then
+if ! [ -f "out/arch/arm/boot/zImage" ]; then
     finerr
 fi
 
-if [ -f "out/arch/arm/boot/zImage-dtb" ]; then
+if [ -f "out/arch/arm/boot/zImage" ]; then
     msg -e "\nKernel compiled succesfully! Zipping up...\n"
     if [ -d "$AK3_DIR" ]; then
         cp -r $AK3_DIR AnyKernel3
@@ -103,14 +103,14 @@ if [ -f "out/arch/arm/boot/zImage-dtb" ]; then
         msg1 -e "\nAnyKernel3 repo not found locally and cloning failed! Aborting..."
         exit 1
     fi
-    cp out/arch/arm/boot/zImage-dtb AnyKernel3
+    cp out/arch/arm/boot/zImage AnyKernel3
     rm -f *zip
     cd AnyKernel3
     git checkout master &> /dev/null
     zip -r9 "${HOME}/${ZIPNAME}" * -x '*.git*' README.md *placeholder
     cd ..
     rm -rf AnyKernel3
-    rm -rf out/arch/arm64/boot
+    rm -rf out/arch/arm/boot
     msg -e "\nCompleted in $((SECONDS / 60)) minute(s) and $((SECONDS % 60)) second(s) !"
     msg "Zip: ${ZIPNAME}"
     info
