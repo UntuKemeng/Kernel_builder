@@ -1,0 +1,33 @@
+name: Kernel Builder
+
+on:
+  push:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  CONFIG: config.sh
+  TG_TOKEN: ${{ secrets.TG_TOKEN }}
+  TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: anggit86/docker:ubuntu
+
+    steps:
+      - name: CheckOut ⚙️
+        uses: actions/checkout@v3
+
+      - name: Sync Source ⏳
+        run: bash sync.sh
+
+      - name: Building Kernel 🖥️
+        run: bash build.sh | tee ${HOME}/build.log
