@@ -25,12 +25,12 @@ AK3_DIR="${MRT_DIR}/android/AnyKernel3"
 
 # Default config
 export PATH="${TC_DIR}/bin:${PATH}"
-export KBUILD_BUILD_USER="M•R•T"
-export KBUILD_BUILD_HOST="Project"
+export KBUILD_BUILD_USER="uwu"
+export KBUILD_BUILD_HOST="SM-G532G"
 export KBUILD_BUILD_VERSION="1"
 
 SECONDS=0 # builtin bash timer
-ZIPNAME="MRT-Kernel-${DEVICE_CODENAME}-$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M").zip"
+ZIPNAME="UWU-Kernel-${DEVICE_CODENAME}-$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M").zip"
 DEFCONFIG="mt6737t-grandpplte_defconfig"
 
 # green
