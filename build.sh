@@ -47,7 +47,7 @@ function finerr() {
     curl -s -X POST "https://api.telegram.org/bot$TG_TOKEN/sendSticker" \
         -d sticker="CAACAgIAAx0CXjGT1gACDRRhYsUKSwZJQFzmR6eKz2aP30iKqQACPgADr8ZRGiaKo_SrpcJQIQQ" \
         -d chat_id="$TG_CHAT_ID"
-    curl -F document=@build.log "https://api.telegram.org/bot$TG_TOKEN/sendDocument" \
+    curl -F document=@${HOME}/build.log "https://api.telegram.org/bot$TG_TOKEN/sendDocument" \
         -F chat_id="$TG_CHAT_ID" \
         -F "disable_web_page_preview=true" \
         -F "parse_mode=html" \
