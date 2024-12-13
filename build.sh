@@ -91,11 +91,11 @@ make -j$(nproc --all) O=out ARCH=arm \
     CROSS_COMPILE=${TC_DIR}/bin/arm-linux-androideabi- \
     CROSS_COMPILE_ARM32=${TC_DIR}/bin/arm-linux-androideabi-
 
-if ! [ -f "out/arch/arm/boot/zImage-dtb" ]; then
+if ! [ -f "out/arch/arm/boot/zImage" ]; then
     finerr
 fi
 
-if [ -f "out/arch/arm/boot/zImage-dtb" ]; then
+if [ -f "out/arch/arm/boot/zImage" ]; then
     msg -e "\nKernel compiled succesfully! Zipping up...\n"
     if [ -d "$AK3_DIR" ]; then
         cp -r $AK3_DIR AnyKernel3
@@ -103,7 +103,7 @@ if [ -f "out/arch/arm/boot/zImage-dtb" ]; then
         msg1 -e "\nAnyKernel3 repo not found locally and cloning failed! Aborting..."
         exit 1
     fi
-    cp out/arch/arm/boot/zImage-dtb AnyKernel3/zimage
+    cp out/arch/arm/boot/zImage AnyKernel3
     rm -f *zip
     cd AnyKernel3
     git checkout master &> /dev/null
