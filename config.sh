@@ -31,7 +31,7 @@ export KBUILD_BUILD_VERSION="1"
 
 SECONDS=0 # builtin bash timer
 ZIPNAME="UWU-Kernel-${DEVICE_CODENAME}-$(TZ=Asia/Jakarta date +"%Y%m%d-%H%M").zip"
-DEFCONFIG="mt6737t-grandpplte_defconfig"
+DEFCONFIG="mt6737t-grandpplte_a64_defconfig"
 
 # green
 msg() {
